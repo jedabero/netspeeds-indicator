@@ -35,9 +35,9 @@ def check(indicator):
         time.sleep(INTERVAL)
         tx = get_bytes('tx')
         rx = get_bytes('rx')
-        tx_speed = tx - tx_prev
-        rx_speed = rx - rx_prev
-        test = bytes_to_readable(tx_speed) + "ps, " + bytes_to_readable(rx_speed) + "ps"
+        tx_speed = (tx - tx_prev) / INTERVAL
+        rx_speed = (rx - rx_prev) / INTERVAL
+        test = "U: " + bytes_to_readable(tx_speed) + "ps, D: " + bytes_to_readable(rx_speed) + "ps"
         GObject.idle_add(indicator.set_label, test, APP_ID, priority=GObject.PRIORITY_DEFAULT)
         tx_prev = tx
         rx_prev = rx
